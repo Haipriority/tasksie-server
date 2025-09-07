@@ -1,6 +1,7 @@
-// Users Module
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
+// user/entities/user.entity.ts
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Task } from '../../tasks/entities/task.entity';
 
 @Entity()
 export class User {
@@ -12,6 +13,10 @@ export class User {
 
   @Column()
   password: string;
+
+  // 👇 inverse side
+  @OneToMany(() => Task, (task) => task.user)
+  tasks: Task[];
 
   @BeforeInsert()
   async hashPassword() {
