@@ -1,27 +1,18 @@
-// Tasks Module
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { User } from 'src/user/entities/user.entity';
+// task.entity.ts
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Task {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('uuid') id: string;
+  @Column() title: string;
+  @Column({ nullable: true }) description?: string;
+  @Column({ default: 'open' }) status: 'open' | 'todo' | 'in_progress' | 'done';
+  @Column({ type: 'timestamptz', default: () => 'now()' }) createdAt: Date;
+  @Column({ type: 'timestamptz', default: () => 'now()' }) updatedAt: Date;
 
-  @Column()
-  title: string;
-
-  @Column()
-  description: string;
-
-  @Column({ default: 'open' })
-  status: 'open' | 'in-progress' | 'completed';
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @ManyToOne(() => User, user => user.id)
+  @Column('uuid', { nullable: false }) userId: string; // NOT NULL
+  @ManyToOne(() => User, (user) => user.tasks, { onDelete: 'CASCADE', nullable: false })
+  @JoinColumn({ name: 'userId' })
   user: User;
 }
