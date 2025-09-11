@@ -32,7 +32,7 @@ npm install
 ### **3.2 Configure Environment Variables**
 Create a `.env` file inside the `server/` folder and add the following:
 ```
-PORT=5000
+PORT=4000
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=postgres
