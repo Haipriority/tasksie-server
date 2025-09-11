@@ -73,7 +73,8 @@ npm install
 ### **4.2 Configure Environment Variables**
 Create a `.env.local` file inside `client/` and add:
 ```
-NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
+NEXT_PUBLIC_API_BASE_URL=http://localhost:4000/api
+JWT_SECRET='d0cvn28bmd41ueiqd8a#023n9da89&'
 ```
 This ensures the frontend communicates with the backend.
 
